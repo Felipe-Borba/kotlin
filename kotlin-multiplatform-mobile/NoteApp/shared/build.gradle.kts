@@ -21,7 +21,7 @@ kotlin {
         val commonMain by getting {
             // All dependencies inside here need to be written in kotlin
             dependencies {
-                implementation("com.squareup.sqldelight:runtime:1.5.3")
+                implementation("com.squareup.sqldelight:runtime:1.5.4")
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
             }
         }
@@ -32,7 +32,7 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation("com.squareup.sqldelight:android-driver:1.5.3")
+                implementation("com.squareup.sqldelight:android-driver:1.5.4")
             }
         }
         val androidTest by getting
@@ -41,7 +41,7 @@ kotlin {
         val iosSimulatorArm64Main by getting
         val iosMain by creating {
             dependencies {
-                implementation("com.squareup.sqldelight:native-driver:1.5.3")
+                implementation("com.squareup.sqldelight:native-driver:1.5.4")
             }
 
             dependsOn(commonMain)
@@ -58,6 +58,13 @@ kotlin {
             iosArm64Test.dependsOn(this)
             iosSimulatorArm64Test.dependsOn(this)
         }
+    }
+}
+
+sqldelight {
+    database("NoteDatabase") {
+        packageName = "com.example.noteapp.database"
+        sourceFolders = listOf("sqldelight")
     }
 }
 

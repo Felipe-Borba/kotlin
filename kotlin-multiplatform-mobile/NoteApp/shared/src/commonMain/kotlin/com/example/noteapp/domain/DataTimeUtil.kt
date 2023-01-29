@@ -3,6 +3,7 @@ package com.example.noteapp.domain
 import kotlinx.datetime.*
 
 //TODO it should be a nice exercise transform this in one interface and implement specific formatter for both platform
+//TODO fix name
 object DataTimeUtil {
 
     fun now(): LocalDateTime {

@@ -25,10 +25,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun NoteListScreen(
+    navController: NavController,
     viewModel: NoteListViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsState()
@@ -41,7 +43,7 @@ fun NoteListScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    //TODO
+                    navController.navigate("note_detail/-1L")
                 },
                 backgroundColor = Color.Black
             ) {
@@ -68,7 +70,9 @@ fun NoteListScreen(
                     onTextChange = viewModel::onSearchTextChange,
                     onSearchClick = viewModel::onToggleSearch,
                     onCloseClick = viewModel::onToggleSearch,
-                    modifier = Modifier.height(90.dp).fillMaxWidth()
+                    modifier = Modifier
+                        .height(90.dp)
+                        .fillMaxWidth()
                 )
                 this@Column.AnimatedVisibility(
                     visible = !state.isSearchActive,
@@ -87,7 +91,9 @@ fun NoteListScreen(
                     NoteItem(
                         note = note,
                         backGroundColor = Color(note.colorHex),
-                        onNoteClick = { /*TODO*/ },
+                        onNoteClick = {
+                            navController.navigate("note_detail/${note.id}")
+                        },
                         onDeleteClick = {
                             viewModel.deleteNoteById(note.id!!)
                         },
@@ -106,5 +112,5 @@ fun NoteListScreen(
 @Composable
 fun NoteListScreenPreview() {
     //TODO how to preview composable with hilt injection
-    NoteListScreen()
+    //NoteListScreen()
 }

@@ -1,37 +1,28 @@
 package com.example.noteapp.android.note_detail
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.noteapp.android.note_list.HideableSearchTextField
-import com.example.noteapp.android.note_list.NoteItem
+import androidx.navigation.NavController
 
 @Composable
 fun NoteDetailScreen(
     notId: Long,
+    navController: NavController,
     viewModel: NoteDetailViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsState()
@@ -39,7 +30,7 @@ fun NoteDetailScreen(
 
     LaunchedEffect(key1 = hasNoteBeenSaved) {
         if (hasNoteBeenSaved) {
-            // TODO: Pop backstack
+            navController.popBackStack()
         }
     }
 

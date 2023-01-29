@@ -46,7 +46,7 @@ struct NoteDetailScreen: View {
 
 struct NoteDetailScreen_Previews: PreviewProvider {
     static var previews: some View {
-        EmptyView()
-        //NoteDetailScreen()
+        let databaseModule = DatabaseModule()
+        NoteDetailScreen(noteDataSource: databaseModule.noteDataSource, noteId: nil)
     }
 }

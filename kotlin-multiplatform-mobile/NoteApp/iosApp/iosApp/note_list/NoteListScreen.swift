@@ -75,9 +75,7 @@ struct NoteListScreen: View {
 struct NoteListScreen_Previews: PreviewProvider {
     
     static var previews: some View {
-        //EmptyView()
         let databaseModule = DatabaseModule()
-        
-        NoteListScreen(noteDataSource: databaseModule.noteDataSource) //TODO: how to preview this thing?
+        NoteListScreen(noteDataSource: databaseModule.noteDataSource)
     }
 }

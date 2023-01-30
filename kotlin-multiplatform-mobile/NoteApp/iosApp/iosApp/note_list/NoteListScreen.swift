@@ -13,9 +13,6 @@ struct NoteListScreen: View {
     private var noteDataSource: NoteDateSource
     @StateObject var viewModel = NoteListViewModel(noteDataSource: nil)
     
-    @State private var isNoteSelected = false //TODO: remove
-    @State private var selectedNoteId: Int64? = nil //TODO: remove
-    
     init(noteDataSource: NoteDateSource) {
         self.noteDataSource = noteDataSource
     }
@@ -23,17 +20,12 @@ struct NoteListScreen: View {
     var body: some View {
         VStack {
             ZStack {
-                //TODO: remove
-                NavigationLink(destination: NoteDetailScreen(noteDataSource: self.noteDataSource, noteId: selectedNoteId), isActive: $isNoteSelected) {
-                    EmptyView()
-                }.hidden()
-                
                 HideableSearchTextField(
                     onSearhToggled: {
                         viewModel.toggleIsSearchActive()
                     },
                     destinationProvider: {
-                        NoteDetailScreen(noteDataSource: self.noteDataSource, noteId: selectedNoteId)
+                        NoteDetailScreen(noteDataSource: self.noteDataSource, noteId: nil)
                     },
                     isSearchActive: viewModel.isSearchActive,
                     searchText: $viewModel.searchText
@@ -41,24 +33,27 @@ struct NoteListScreen: View {
                     .padding()
                 
                 if !viewModel.isSearchActive {
-                    Text("All notes")
-                        .font(.title2)
+                    Text("All notes").font(.title2)
                 }
             } 
             
             List {
                 ForEach(viewModel.filteredNotes, id: \.self.id) { note in
-                    Button(action: { //TODO: I think I should change button to Navigation link and remove all this state bullshit
-                        isNoteSelected = true
-                        selectedNoteId = note.id?.int64Value
-                    }) {
+                    Button(action: {}) {
                         NoteItem(
                             note: note,
                             onDeleteClick: {
                                 viewModel.deleteNoteById(id: note.id?.int64Value)
                             }
                         )
-                    }
+                    }.background(
+                        NavigationLink("", destination: {
+                            NoteDetailScreen(
+                                noteDataSource: self.noteDataSource,
+                                noteId: note.id?.int64Value
+                            )
+                        }).opacity(0)
+                    )
                 }
             }
             .onAppear {

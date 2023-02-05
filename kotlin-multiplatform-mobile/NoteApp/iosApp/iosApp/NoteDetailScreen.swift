@@ -25,7 +25,7 @@ struct NoteDetailScreen: View {
     var body: some View {
         VStack(alignment: .leading) {
             TextField("Enter a title", text: $viewModel.noteTitle).font(.title)
-            TextField("Enter some content", text: $viewModel.noteContent)
+            TextField("Enter some content", text: $viewModel.noteContent) //TODO: change to textEditor but fix styling (issue: add suport to multiline)
             Spacer()
         }.toolbar(content: {
             Button(action: {

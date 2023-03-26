@@ -8,9 +8,9 @@ val kotlinWrappersVersion = "1.0.0-pre.354"
 val kmongoVersion = "4.5.0"
 
 plugins {
-    kotlin("multiplatform") version "1.7.20-Beta"
+    kotlin("multiplatform") version "1.7.20-Beta" //can I update to 1.8.10?
     application //to run JVM part
-    kotlin("plugin.serialization") version "1.7.20-Beta"
+    kotlin("plugin.serialization") version "1.7.20-Beta" //can I update to 1.8.10?
 }
 
 group = "org.example"

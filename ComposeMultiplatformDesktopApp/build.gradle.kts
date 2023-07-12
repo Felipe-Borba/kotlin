@@ -23,6 +23,8 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
+                // Added dependencies for webScrap
+                implementation("org.seleniumhq.selenium:selenium-java:4.10.0")
             }
         }
         val jvmTest by getting

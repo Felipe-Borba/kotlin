@@ -12,6 +12,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
+import org.openqa.selenium.By
+import org.openqa.selenium.chrome.ChromeDriver
+import org.openqa.selenium.chrome.ChromeDriverService
+import org.openqa.selenium.support.ui.ExpectedConditions
+import org.openqa.selenium.support.ui.WebDriverWait
+import java.time.Duration
+
 
 @Composable
 @Preview
@@ -19,18 +26,59 @@ fun App() {
     var count by remember { mutableStateOf(0) }
 
     MaterialTheme {
-        Column(Modifier.fillMaxSize(), Arrangement.spacedBy(5.dp)) {
-            Button(modifier = Modifier.align(Alignment.CenterHorizontally),
+        Column(
+            modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(5.dp)
+        ) {
+            Button(
+                modifier = Modifier.align(Alignment.CenterHorizontally),
                 onClick = {
                     count++
-                }) {
+                }
+            ) {
                 Text(if (count == 0) "Hello World" else "Clicked ${count}!")
             }
-            Button(modifier = Modifier.align(Alignment.CenterHorizontally),
+            Button(
+                modifier = Modifier.align(Alignment.CenterHorizontally),
                 onClick = {
                     count = 0
-                }) {
+                }
+            ) {
                 Text("Reset")
+            }
+            Button(
+                modifier = Modifier.align(Alignment.CenterHorizontally),
+                onClick = {
+                    val service = ChromeDriverService.Builder().build()
+                    val driver = ChromeDriver(service)
+//                    driver.get("https://twitter.com/search?q=web3")
+                    driver.get("https://www.selenium.dev/selenium/web/web-form.html");
+
+//                    WebDriverWait(driver, Duration.ofSeconds(10)).until(
+//                        ExpectedConditions.presenceOfElementLocated(
+//                            By.cssSelector(
+//                                "main section"
+//                            )
+//                        )
+//                    )
+
+                    driver.manage().timeouts().implicitlyWait(Duration.ofMillis(500))
+                    val title = driver.title
+                    println(title)
+
+                    val textBox = driver.findElement(By.name("my-text"))
+                    val submitButton = driver.findElement(By.cssSelector("button"))
+
+                    textBox.sendKeys("Selenium");
+                    submitButton.click();
+
+                    driver.manage().timeouts().implicitlyWait(Duration.ofMillis(500))
+                    val response = driver.findElement(By.id("message"))
+                    println(response.text)
+
+                    driver.quit();
+                },
+            ) {
+                Text("Scrap")
             }
         }
     }

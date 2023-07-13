@@ -23,6 +23,8 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
+                // Added dependencies for openPDF
+                implementation("com.github.librepdf:openpdf:1.3.30")
             }
         }
         val jvmTest by getting

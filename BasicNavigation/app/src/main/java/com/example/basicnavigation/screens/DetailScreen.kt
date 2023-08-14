@@ -21,16 +21,16 @@ import androidx.navigation.compose.rememberNavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailScreen(navController: NavController) {
+fun DetailScreen(navController: NavController, name: String) {
     Scaffold(topBar = {
         TopAppBar(
             title = { Text("Naviation") },
             navigationIcon = {
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "Arrow back"
+                    contentDescription = "Arrow back",
                 )
-            }
+            },
         )
     }) {
         Column(
@@ -41,6 +41,7 @@ fun DetailScreen(navController: NavController) {
             verticalArrangement = Arrangement.Center,
         ) {
             Text(text = "Detail Screen")
+            Text(text = "Hello $name")
             Button(onClick = {
                 navController.popBackStack()
             }) {
@@ -53,5 +54,5 @@ fun DetailScreen(navController: NavController) {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun DetailScreenPreview() {
-    DetailScreen(navController = rememberNavController())
+    DetailScreen(navController = rememberNavController(), name = "felipe")
 }

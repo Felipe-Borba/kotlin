@@ -14,19 +14,19 @@ import com.example.basicnavigation.screens.HomeScreen
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = Screens.HomeScreen.name) {
-        composable(Screens.HomeScreen.name) {
+    NavHost(navController = navController, startDestination = Screen.MainScreen.route) {
+        composable(Screen.MainScreen.route) {
             HomeScreen(navController = navController)
         }
 
         composable(
-            Screens.DetailScreen.name + "/{id}",
+            Screen.DetailScreen.route + "/{id}",
             arguments = listOf(navArgument(name = "id") { type = NavType.StringType })
-        ) { backStackEntry ->
-            val id = backStackEntry.arguments?.getString("id")
+        ) { entry ->
+            val id = entry.arguments?.getString("id")
             Log.d("detail id", "$id")
 
-            DetailScreen(navController = navController)
+            DetailScreen(navController = navController, name = id.orEmpty())
         }
     }
 }
